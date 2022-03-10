@@ -1,0 +1,22 @@
+import { useState, useEffect } from 'react'
+import { useActiveWeb3React } from '.'
+
+export function useTimestampFromBlock(block: number | undefined): number | undefined {
+  const { library } = useActiveWeb3React()
+  const [timestamp, setTimestamp] = useState<number>()
+  useEffect(() => {
+    async function fetchTimestamp() {
+      if (block) {
+        const blockData = await library?.getBlock(block)
+        // eslint-disable-next-line no-unused-expressions
+        blockData && setTimestamp(blockData.timestamp)
+      }
+    }
+    if (!timestamp) {
+      fetchTimestamp()
+    }
+  }, [block, library, timestamp])
+  return timestamp
+}
+
+export default useTimestampFromBlock;
