@@ -17,4 +17,4 @@ yarn build
 
 ## Developers
 
-* Peter
+* Kevin 
